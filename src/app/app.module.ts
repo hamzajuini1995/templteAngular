@@ -14,12 +14,14 @@ import { ExamplesModule } from './examples/examples.module';
 
 import { HttpClientModule } from '@angular/common/http';
 
+import { BullConversationComponent } from './components/bull-conversation/bull-conversation.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    BullConversationComponent
   ],
   imports: [
     BrowserModule,
