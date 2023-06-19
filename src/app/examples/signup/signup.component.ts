@@ -14,7 +14,8 @@ export class SignupComponent implements OnInit {
     
     email = "";
     password = "";
-    constructor(private userService: UserService, private router: Router) { }
+    constructor(private userService: UserService, private router: Router) {
+     }
 
     ngOnInit() {}
 
@@ -25,7 +26,11 @@ export class SignupComponent implements OnInit {
         }).subscribe(res => {
             console.log(res)
             if(res.length > 0){
-                this.router.navigate(['home']);
+                localStorage.setItem('token', res);
+                localStorage.setItem('mode', 'mode connection')
+                this.router.navigate(['home']).then(() => {
+                    location.reload();
+                });
             }else{
                 alert("Email ou Password incorrecte")
             }

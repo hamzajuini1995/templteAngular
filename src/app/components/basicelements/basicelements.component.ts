@@ -10,8 +10,13 @@ export class BasicelementsComponent implements OnInit {
     doubleSlider = [20, 60];
     state_default: boolean = true;
     focus: any;
+
+    mode = "";
     constructor() { }
 
-    ngOnInit() {}
+    ngOnInit() {
+      this.mode = localStorage.getItem('mode');
+      console.log(this.mode)
+    }
 
 }
