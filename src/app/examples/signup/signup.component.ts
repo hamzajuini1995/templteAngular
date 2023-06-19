@@ -23,6 +23,7 @@ export class SignupComponent implements OnInit {
             email: this.email,
             password: this.password
         }).subscribe(res => {
+            console.log(res)
             if(res.length > 0){
                 this.router.navigate(['home']);
             }else{
