@@ -36,4 +36,8 @@ export class SignupComponent implements OnInit {
             }
         });
     }
+
+    goToCreate(){
+        this.router.navigate(['create-user'])
+    }
 }
