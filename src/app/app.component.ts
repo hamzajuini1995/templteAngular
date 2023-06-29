@@ -5,6 +5,9 @@ import { LocationStrategy, PlatformLocation, Location } from '@angular/common';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { filter, Subscription } from 'rxjs';
 import { UserService } from './services/user.service';
+//import * as jwt_decode from 'jwt-decode';
+import { JwtHelperService } from '@auth0/angular-jwt';
+
 
 @Component({
     selector: 'app-root',
@@ -16,10 +19,25 @@ export class AppComponent implements OnInit {
     @ViewChild(NavbarComponent) navbar: NavbarComponent;
 
     constructor( private renderer : Renderer2, private router: Router, @Inject(DOCUMENT,) private document: any, private element : ElementRef, public location: Location,
-        private userService: UserService) {
+        private userService: UserService, private jwtHelper: JwtHelperService) {
             debugger;
             if(localStorage.getItem('token')){
                 localStorage.setItem('mode', "mode connection")
+                //let decodedToken = jwt_decode("token");
+                const decodedToken = this.jwtHelper.decodeToken(localStorage.getItem('token'));
+                localStorage.setItem('id', decodedToken.id);
+                localStorage.setItem('userName', decodedToken.userName);
+                localStorage.setItem('role', decodedToken.role);
+                localStorage.setItem('email', decodedToken.email);
+
+                userService.getUserById(decodedToken.id).subscribe(res => {
+                    if(res.improved == false){
+                        localStorage.setItem("improved", "no");
+                        router.navigate(['improve-error']);
+                    }else{
+                        localStorage.setItem("improved", "yes");
+                    }
+                });
             }else{
                 localStorage.setItem('mode', 'mode guest')
             }

@@ -15,6 +15,8 @@ import { NotificationComponent } from './notification/notification.component';
 import { NgbdModalComponent } from './modal/modal.component';
 import { NgbdModalContent } from './modal/modal.component';
 import { CreateUserComponent } from './create-user/create-user.component';
+import { ListUserComponent } from './list-user/list-user.component';
+import { ImproveErrorComponent } from './improve-error/improve-error.component';
 
 @NgModule({
     imports: [
@@ -34,7 +36,9 @@ import { CreateUserComponent } from './create-user/create-user.component';
         NotificationComponent,
         NgbdModalComponent,
         NgbdModalContent,
-        CreateUserComponent
+        CreateUserComponent,
+        ListUserComponent,
+        ImproveErrorComponent
     ],
     entryComponents: [NgbdModalContent],
     exports:[ ComponentsComponent ]

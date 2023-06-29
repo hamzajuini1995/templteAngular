@@ -16,6 +16,18 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { BullConversationComponent } from './components/bull-conversation/bull-conversation.component';
 
+import { JwtModule, JWT_OPTIONS } from '@auth0/angular-jwt';
+
+
+export function jwtOptionsFactory() {
+  return {
+    tokenGetter: () => {
+      // Implement the logic to retrieve the JWT token from your preferred source (e.g., localStorage, sessionStorage, etc.)
+      return localStorage.getItem('token');
+    },
+  };
+}
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +43,13 @@ import { BullConversationComponent } from './components/bull-conversation/bull-c
     ComponentsModule,
     ExamplesModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    JwtModule.forRoot({
+      jwtOptionsProvider: {
+        provide: JWT_OPTIONS,
+        useFactory: jwtOptionsFactory,
+      },
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

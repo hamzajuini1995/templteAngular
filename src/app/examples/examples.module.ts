@@ -6,6 +6,9 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { LandingComponent } from './landing/landing.component';
 import { ProfileComponent } from './profile/profile.component';
 import { SignupComponent } from './signup/signup.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { VerifyForgotPasswordComponent } from './verify-forgot-password/verify-forgot-password.component';
+import { NewForgotPasswordComponent } from './new-forgot-password/new-forgot-password.component';
 
 @NgModule({
     imports: [
@@ -16,7 +19,10 @@ import { SignupComponent } from './signup/signup.component';
     declarations: [
         LandingComponent,
         SignupComponent,
-        ProfileComponent
+        ProfileComponent,
+        ForgotPasswordComponent,
+        VerifyForgotPasswordComponent,
+        NewForgotPasswordComponent
     ]
 })
 export class ExamplesModule { }

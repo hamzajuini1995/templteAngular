@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { UserService } from 'app/services/user.service';
 
 @Component({
@@ -14,7 +15,7 @@ export class SignupComponent implements OnInit {
     
     email = "";
     password = "";
-    constructor(private userService: UserService, private router: Router) {
+    constructor(private userService: UserService, private router: Router, private jwtHelper: JwtHelperService) {
      }
 
     ngOnInit() {}
@@ -27,7 +28,23 @@ export class SignupComponent implements OnInit {
             console.log(res)
             if(res.length > 0){
                 localStorage.setItem('token', res);
-                localStorage.setItem('mode', 'mode connection')
+                localStorage.setItem('mode', 'mode connection');
+
+                const decodedToken = this.jwtHelper.decodeToken(localStorage.getItem('token'));
+                localStorage.setItem('id', decodedToken.id);
+                localStorage.setItem('userName', decodedToken.userName);
+                localStorage.setItem('role', decodedToken.role);
+                localStorage.setItem('email', decodedToken.email);
+
+                this.userService.getUserById(decodedToken.id).subscribe(res => {
+                    if(res.improved == false){
+                        localStorage.setItem("improved", "no");
+                        this.router.navigate(['improve-error']);
+                    }else{
+                        localStorage.setItem("improved", "yes");
+                    }
+                });
+
                 this.router.navigate(['home']).then(() => {
                     location.reload();
                 });
@@ -39,5 +56,9 @@ export class SignupComponent implements OnInit {
 
     goToCreate(){
         this.router.navigate(['create-user'])
+    }
+
+    forgotPassword(){
+        this.router.navigate(['forgot-password']);
     }
 }

@@ -30,7 +30,7 @@ export class CreateUserComponent implements OnInit {
 
   create(){
     this.user.createdBy = "foued";
-    this.userService.create(this.user).subscribe(res => {
+    this.userService.createUser(this.user).subscribe(res => {
       this.router.navigate(['home'])
     })
   }

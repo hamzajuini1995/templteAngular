@@ -13,6 +13,8 @@ export class NavbarComponent implements OnInit {
     private sidebarVisible: boolean;
 
     mode = "";
+    role = "";
+    improved = "";
 
     constructor(public location: Location, private element : ElementRef, private router: Router) {
         this.sidebarVisible = false;
@@ -23,8 +25,10 @@ export class NavbarComponent implements OnInit {
         this.toggleButton = navbar.getElementsByClassName('navbar-toggler')[0];
 
         this.mode = localStorage.getItem('mode');
-        console.log(this.mode)
+        this.role = localStorage.getItem('role');
+        this.improved = localStorage.getItem('improved');
     }
+
     sidebarOpen() {
         const toggleButton = this.toggleButton;
         const html = document.getElementsByTagName('html')[0];
@@ -85,7 +89,11 @@ export class NavbarComponent implements OnInit {
 
     logout(){
         localStorage.removeItem('token');
+        localStorage.removeItem('userName');
+        localStorage.removeItem('role');
+        localStorage.removeItem('email');
+        localStorage.removeItem('improved');
         localStorage.setItem('mode', 'mode guest');
-        location.reload();
+        this.router.navigate(['home']).then(() => location.reload());
     }
 }
